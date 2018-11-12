@@ -1,6 +1,6 @@
 package ss.week1;
 
-public class ThreeWayLight1 {
+public class ThreeWayLight {
 	public enum Setting {
 		OFF, LOW, MEDIUM, HIGH;
 		
@@ -18,9 +18,28 @@ public class ThreeWayLight1 {
 					return OFF;
 			}
 		}
+		
+		public String toString() {
+			switch (this) {
+				case OFF:
+					return "OFF";
+				case LOW:
+					return "LOW";
+				case MEDIUM:
+					return "MEDIUM";
+				case HIGH:
+					return "HIGH";
+				default:
+					return "UNKNOWN STATE";
+			}
+		}
 	}
 	
-	private Setting setting = Setting.OFF;
+	private Setting setting;
+	
+	public ThreeWayLight() {
+		setting = Setting.OFF;
+	}
 	
 	public void switchSetting() {
 		setting = setting.up();
