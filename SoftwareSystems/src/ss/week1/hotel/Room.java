@@ -46,4 +46,8 @@ public class Room {
     public void setGuest(Guest g) {
     	guest = g;
     }
+    
+    public String toString() {
+		return String.format("Room %d", number);
+	}
 }

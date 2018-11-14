@@ -64,5 +64,9 @@ public class Guest {
 		}
 		return success;
 	}
+	
+	public String toString() {
+		return String.format("Guest %s", name);
+	}
 
 }
