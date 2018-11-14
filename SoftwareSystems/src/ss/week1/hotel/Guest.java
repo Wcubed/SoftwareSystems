@@ -2,12 +2,15 @@ package ss.week1.hotel;
 
 public class Guest {
 	
+	private String name;
+	private Room room;
+	
 	/**
 	 * Creates a <code>Guest</code> with the given name, without assigning a room.
 	 * @param name Name of the new <code>Guest</code>.
 	 */
 	public Guest(String name) {
-		
+		this.name = name;
 	}
 
 	/**
@@ -15,7 +18,7 @@ public class Guest {
 	 * @return The name of the <code>Guest</code>
 	 */
 	public String getName() {
-		return "";
+		return name;
 	}
 
 	/**
@@ -25,7 +28,7 @@ public class Guest {
 	 * 	       rented a room.
 	 */
 	public Room getRoom() {
-		return null;
+		return room;
 	}
 
 	/**
@@ -36,7 +39,14 @@ public class Guest {
 	 *         <code>false</code> if the room is already occupied.
 	 */
 	public boolean checkin(Room room) {
-		return true;
+		boolean success = false;
+		if (room.getGuest() == null) {
+			// The room is empty, we can check in.
+			room.setGuest(this);
+			this.room = room;
+			success = true;
+		}
+		return success;
 	}
 
 	/**
@@ -45,7 +55,14 @@ public class Guest {
 	 *         <code>false</code> if the guest was not renting a room to begin with.
 	 */
 	public boolean checkout() {
-		return true;
+		boolean success = false;
+		if (room != null) {
+			// We have a room, so we can check-out.
+			room.setGuest(null);
+			room = null;
+			success = true;
+		}
+		return success;
 	}
 
 }
