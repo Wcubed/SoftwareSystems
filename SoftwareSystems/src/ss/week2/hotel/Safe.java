@@ -111,6 +111,16 @@ public class Safe {
 		return pass;
 	}
 	
+	public String toString() {
+		String result;
+		if (open) {
+			result = String.format("safe open");
+		} else {
+			result = String.format("safe closed");
+		}
+		return result;
+	}
+	
 	// Main function that invalidates preconditions.
 	public static void main(String[] args) {
 		Safe safe = new Safe();

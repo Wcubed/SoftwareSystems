@@ -2,6 +2,7 @@ package ss.week2.test;
 
 import static org.junit.Assert.*;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -36,7 +37,7 @@ public class RoomTest {
     
     @Test
     public void testToString() {
-    	assertEquals("Room 101", room.toString());
+    	assertThat(room.toString(), CoreMatchers.containsString("101"));
     }
     
     @Test
