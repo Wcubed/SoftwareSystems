@@ -23,7 +23,8 @@ public class Safe {
 	 * @param passAttempt The password.
 	 * @return True when the safe is now active.
 	 */
-	/*@ ensures getPassword().testWord(passAttempt) == true
+	/*@ requires passAttempt != null;
+	  @ ensures getPassword().testWord(passAttempt) == true
 	  @         ==> isActive() == true && \result == true;
 	  @ ensures getPassword().testWord(passAttempt) == false
 	  @         ==> \result == false;
@@ -31,6 +32,9 @@ public class Safe {
 	  @*/
 	public boolean activate(String passAttempt) {
 		boolean success = false;
+		
+		assert passAttempt != null;
+		
 		if (getPassword().testWord(passAttempt)) {
 			active = true;
 			success = true;
@@ -53,13 +57,17 @@ public class Safe {
 	 * @param passAttempt The password.
 	 * @return True when the safe is now open.
 	 */
-	/*@ ensures getPassword().testWord(passAttempt) == true
+	/*@ requires passAttempt != null;
+	  @ ensures getPassword().testWord(passAttempt) == true
 	  @         && isActive() == true
 	  @         ==> isOpen() == true && \result == true;
 	  @ ensures isActive() == \old(isActive());
 	  @*/
 	public boolean open(String passAttempt) {
 		boolean success = false;
+		
+		assert passAttempt != null;
+		
 		if (isActive() && getPassword().testWord(passAttempt)) {
 			open = true;
 			success = true;
@@ -101,5 +109,13 @@ public class Safe {
 	//@ pure
 	public Password getPassword() {
 		return pass;
+	}
+	
+	// Main function that invalidates preconditions.
+	public static void main(String[] args) {
+		Safe safe = new Safe();
+		
+		// Should fail with an assert error:
+		safe.activate(null);
 	}
 }

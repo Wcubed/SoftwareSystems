@@ -1,15 +1,16 @@
 package ss.week2.test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import ss.week2.hotel.*;
+import ss.week2.hotel.Password;
+import ss.week2.hotel.Safe;
 
-class SafeTest {
-
+public class SafeTest {
 	@Test
-	void testInitialState() {
+	public void testInitialState() {
 		Safe safe = new Safe();
 
 		assertFalse(safe.isActive());
@@ -17,7 +18,7 @@ class SafeTest {
 	}
 
 	@Test
-	void testInitialPassword() {
+	public void testInitialPassword() {
 		Safe safe = new Safe();
 
 		assertTrue(safe.activate(Password.INITIAL));
@@ -25,7 +26,7 @@ class SafeTest {
 	}
 
 	@Test
-	void testChangePassword() {
+	public void testChangePassword() {
 		Safe safe = new Safe();
 		String pass = "blabla";
 
@@ -35,77 +36,93 @@ class SafeTest {
 	}
 
 	@Test
-	void testActivateWrongPass() {
+	public void testActivateWrongPass() {
 		Safe safe = new Safe();
 
 		assertFalse(safe.activate("incorrectPassword"));
 		assertFalse(safe.isActive());
 	}
-	
+
 	@Test
-	void testActivateCorrectPass() {
+	public void testActivateCorrectPass() {
 		Safe safe = new Safe();
 
 		assertTrue(safe.activate(Password.INITIAL));
 		assertTrue(safe.isActive());
 	}
-	
+
 	@Test
-	void testOpenWhenInactive() {
+	public void testOpenWhenInactive() {
 		Safe safe = new Safe();
-		
+
 		assertFalse(safe.open(Password.INITIAL));
 		assertFalse(safe.isOpen());
-		
+
 	}
 
 	@Test
-	void testOpenWrongPass() {
+	public void testOpenWrongPass() {
 		Safe safe = new Safe();
 
 		safe.activate(Password.INITIAL);
-		
+
 		assertFalse(safe.open("wrongPass"));
 		assertFalse(safe.isOpen());
 	}
-	
+
 	@Test
-	void testOpenCorrectPass() {
+	public void testOpenCorrectPass() {
 		Safe safe = new Safe();
 
 		safe.activate(Password.INITIAL);
-		
+
 		assertTrue(safe.open(Password.INITIAL));
 		assertTrue(safe.isOpen());
 	}
-	
+
 	@Test
-	void testDeactivate() {
+	public void testDeactivate() {
 		Safe safe = new Safe();
 
 		safe.activate(Password.INITIAL);
 		safe.open(Password.INITIAL);
-		
+
 		assertTrue(safe.isOpen());
-		
+
 		safe.deactivate();
-		
+
 		assertFalse(safe.isActive());
 		assertFalse(safe.isOpen());
 	}
-	
+
 	@Test
-	void testClose() {
+	public void testClose() {
 		Safe safe = new Safe();
 
 		safe.activate(Password.INITIAL);
 		safe.open(Password.INITIAL);
-		
+
 		assertTrue(safe.isOpen());
-		
+
 		safe.close();
-		
+
 		assertFalse(safe.isOpen());
 	}
 
+	
+	@Test(expected = AssertionError.class)
+	public void nullActivationPassword() {
+		Safe safe = new Safe();
+
+		safe.activate(null);
+	}
+
+	@Test(expected = AssertionError.class)
+	public void nullOpenPassword() {
+		Safe safe = new Safe();
+
+		safe.activate(Password.INITIAL);
+
+		safe.open(null);
+	}
 }
