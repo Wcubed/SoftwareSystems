@@ -75,8 +75,8 @@ class SafeTest {
 
 		safe.activate(Password.INITIAL);
 		
-		assertFalse(safe.open(Password.INITIAL));
-		assertFalse(safe.isOpen());
+		assertTrue(safe.open(Password.INITIAL));
+		assertTrue(safe.isOpen());
 	}
 	
 	@Test

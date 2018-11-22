@@ -15,7 +15,7 @@ public class Safe {
 	//@ ensures isOpen() == false;
 	//@ ensures isActive() == false;
 	public Safe() {
-		
+		pass = new Password();
 	}
 	
 	/**
@@ -30,7 +30,12 @@ public class Safe {
 	  @ ensures isOpen() == \old(isOpen());
 	  @*/
 	public boolean activate(String passAttempt) {
-		return false;
+		boolean success = false;
+		if (getPassword().testWord(passAttempt)) {
+			active = true;
+			success = true;
+		}
+		return success;
 	}
 	
 	/**
@@ -39,7 +44,8 @@ public class Safe {
 	//@ ensures isActive() == false;
 	//@ ensures isOpen() == false;
 	public void deactivate() {
-		
+		active = false;
+		open = false;
 	}
 	
 	/**
@@ -53,7 +59,12 @@ public class Safe {
 	  @ ensures isActive() == \old(isActive());
 	  @*/
 	public boolean open(String passAttempt) {
-		return false;
+		boolean success = false;
+		if (isActive() && getPassword().testWord(passAttempt)) {
+			open = true;
+			success = true;
+		}
+		return success;
 	}
 	
 	/**
@@ -62,7 +73,7 @@ public class Safe {
 	//@ ensures isOpen() == false;
 	//@ ensures isActive() == \old(isActive());
 	public void close() {
-		
+		open = false;
 	}
 	
 	/**
@@ -71,7 +82,7 @@ public class Safe {
 	 */
 	//@ pure
 	public boolean isOpen() {
-		return false;
+		return open;
 	}
 	
 	/**
@@ -80,7 +91,7 @@ public class Safe {
 	 */
 	//@ pure
 	public boolean isActive() {
-		return false;
+		return active;
 	}
 	
 	/**
