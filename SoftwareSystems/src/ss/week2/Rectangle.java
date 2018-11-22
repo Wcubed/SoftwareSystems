@@ -1,5 +1,7 @@
 package ss.week2;
 
+import static org.junit.Assert.assertTrue;
+
 public class Rectangle {
 	//@ public invariant length() >= 0;
 	//@ public invariant width() >= 0;
@@ -17,14 +19,19 @@ public class Rectangle {
     //@ ensures length() == length;
     //@ ensures width() == width;
     public Rectangle(int length, int width) {
+    	assertTrue(length >= 0);
+    	assertTrue(width >= 0);
+    	this.length = length;
+    	this.width = width;
     }
     
     /**
      * The length of this Rectangle.
      */
-    //@ pure;
+    //@ pure
     public int length() {
-    	return 0;
+    	assertTrue(length >= 0);
+    	return length;
     }
 
     /**
@@ -32,22 +39,29 @@ public class Rectangle {
      */
     //@ pure;
     public int width() {
-    	return 0;
+    	assertTrue(width >= 0);
+    	return width;
     }
 
     /**
      * The area of this Rectangle.
      */
-    //@ pure;
+    //@ ensures \result == length() * width();
+    //@ pure
     public int area() {
-    	return 0;
+    	assertTrue(length() >= 0);
+    	assertTrue(width() >= 0);
+    	return length() * width();
     }
 
     /**
      * The perimeter of this Rectangle.
      */
-    //@ pure;
+    //@ ensures \result == length() * 2 + width() * 2;
+    //@ pure
     public int perimeter() {
-    	return 0;
+    	assertTrue(length() >= 0);
+    	assertTrue(width() >= 0);
+    	return length() * 2 + width() * 2;
     }
 }
