@@ -43,6 +43,7 @@ public class Room {
      *         <code>null</code> if this <code>Room</code> 
      *         is not currently rented
      */
+    //@ pure
     public Guest getGuest() {
     	return guest;
     }
@@ -50,6 +51,7 @@ public class Room {
     /**
      * Returns the safe of this room.
      */
+    //@ pure
     public Safe getSafe() {
     	return safe;
     }

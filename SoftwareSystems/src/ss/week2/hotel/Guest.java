@@ -17,6 +17,7 @@ public class Guest {
 	 * Returns the name of this <code>Guest</code>.
 	 * @return The name of the <code>Guest</code>
 	 */
+	//@ pure
 	public String getName() {
 		return name;
 	}

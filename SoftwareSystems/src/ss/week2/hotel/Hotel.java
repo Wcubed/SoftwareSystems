@@ -16,8 +16,11 @@ public class Hotel {
 		room2 = new Room(203);
 	}
 	
-	//@ requires guest != null;
-	//@ requires pass != null;
+	/*@ requires guest != null;
+	  @ requires pass != null;
+	  @ ensures getPassword().testWord(pass) && getFreeRoom() != null
+	  @			==> getRoom(guest) != null && \result.getGuest().getName() == guest;
+	  @*/
 	public Room checkIn(String pass, String guest) {
 		assert pass != null;
 		assert guest != null;
@@ -35,7 +38,10 @@ public class Hotel {
 		return newRoom;
 	}
 	
-	//@ requires guest != null;
+	/*@ requires guest != null;
+	  @ ensures getRoom(guest) == null;
+	  @ ensures \old(getRoom(guest)).getSafe().isActive() == false;
+	  @*/
 	public void checkOut(String guest) {
 		assert guest != null;
 		
@@ -47,6 +53,9 @@ public class Hotel {
 		}
 	}
 	
+	/*@ ensures \result.getGuest() == null || \result == null;
+	  @ pure
+	  @*/
 	public Room getFreeRoom() {
 		Room result = null;
 		if (room1.getGuest() == null) {
@@ -57,8 +66,10 @@ public class Hotel {
 		return result;
 	}
 	
-	//@ requires guest != null;
-	//@ pure
+	/*@ requires guest != null;
+	  @ ensures \result.getGuest().getName() == guest || \result == null;
+	  @ pure
+	  @*/
 	public Room getRoom(String guest) {
 		assert guest != null;
 		
