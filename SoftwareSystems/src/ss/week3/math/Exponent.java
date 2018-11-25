@@ -1,6 +1,6 @@
 package ss.week3.math;
 
-public class Exponent implements Function {
+public class Exponent implements Function, Integrable {
 	
 	int exp;
 	
@@ -16,6 +16,11 @@ public class Exponent implements Function {
 	@Override
 	public Function derivative() {
 		return new LinearProduct(new Constant(exp), new Exponent(exp - 1));
+	}
+	
+	@Override
+	public <T extends Function & Integrable> T integral() {
+		return new LinearProduct(Constant(1 / (exp + 1)), new Exponent(exp + 1));
 	}
 	
 	@Override
