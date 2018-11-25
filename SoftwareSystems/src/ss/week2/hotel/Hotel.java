@@ -19,7 +19,7 @@ public class Hotel {
 	/*@ requires guest != null;
 	  @ requires pass != null;
 	  @ ensures getPassword().testWord(pass) && getFreeRoom() != null
-	  @			==> getRoom(guest) != null && \result.getGuest().getName() == guest;
+	  @			==> getRoom(guest) != null && \result.getGuest().getName().equals(guest);
 	  @*/
 	public Room checkIn(String pass, String guest) {
 		assert pass != null;
@@ -67,7 +67,7 @@ public class Hotel {
 	}
 	
 	/*@ requires guest != null;
-	  @ ensures \result.getGuest().getName() == guest || \result == null;
+	  @ ensures \result.getGuest().getName().equals(guest) || \result == null;
 	  @ pure
 	  @*/
 	public Room getRoom(String guest) {
