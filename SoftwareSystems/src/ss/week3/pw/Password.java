@@ -1,18 +1,19 @@
 package ss.week3.pw;
 
 public class Password {
-	/**
-	 * The standard initial password.
-	 */
-	public static final String INITIAL = "thisisaninitialpassword";	
-
 	private String pass;
+	private String factoryPassword;
+	private Checker checker;
 	
-	/**
-	 * Constructs a Password with the initial word provided in <code>INITIAL</code>.
-	 */
+
 	public Password() {
-		pass = INITIAL;
+		this(new BasicChecker());
+	}
+	
+	public Password(Checker checker) {
+		this.checker = checker;
+		factoryPassword = Checker.INITPASS;
+		pass = Checker.INITPASS;
 	}
 	
 	/**
@@ -23,7 +24,7 @@ public class Password {
 	 * @return true if the suggestion is acceptable.
 	 */
 	public boolean acceptable(String suggestion) {
-	    return suggestion.length() >= 6 && !suggestion.contains(" ");
+	    return checker.acceptable(suggestion);
 	}
 	
 	/**
@@ -37,7 +38,7 @@ public class Password {
 	 */
 	public boolean setWord(String oldPass, String newPass) {
 		boolean success = false;
-		if (testWord(oldPass) && acceptable(oldPass) && acceptable(newPass)) {
+		if (testWord(oldPass) && acceptable(newPass)) {
 			pass = newPass;
 			success = true;
 		}
@@ -52,5 +53,15 @@ public class Password {
 	//@ pure
 	public boolean testWord(String test) {
 		return pass.equals(test);
+	}
+	
+	//@ pure
+	public String getFactoryPassword() {
+		return factoryPassword;
+	}
+	
+	//@ pure
+	public Checker getChecker() {
+		return checker;
 	}
 }
