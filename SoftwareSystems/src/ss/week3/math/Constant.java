@@ -8,16 +8,19 @@ public class Constant implements Function {
 		this.value = value;
 	}
 	
+	@Override
 	public double apply(double argument) {
 		return value;
 	}
 	
+	@Override
 	public Function derivative() {
 		return new Constant(0);
 	}
-	
+
+	@Override
 	public String toString() {
-		return String.format("%f", value);
+		return String.format("%.2f", value);
 	}
 	
 	public static void main(String[] args) {
