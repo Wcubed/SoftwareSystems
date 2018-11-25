@@ -2,8 +2,6 @@ package ss.week3.pw;
 
 public class StrongChecker extends BasicChecker {
 	
-	public static final String INITPASS = "SFDJKLS5";
-	
 	@Override
 	public boolean acceptable(String suggestion) {
 		assert suggestion != null;
