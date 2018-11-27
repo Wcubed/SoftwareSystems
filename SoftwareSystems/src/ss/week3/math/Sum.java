@@ -21,7 +21,7 @@ public class Sum<T extends Function & Integrable> implements Function, Integrabl
 	
 	@Override
 	public T integral() {
-		return new LinearProduct(Constant(0.5), new Exponent(2));
+		return (T) new LinearProduct(new Constant(0.5), new Exponent(2));
 	}
 
 	@Override

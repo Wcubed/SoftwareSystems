@@ -1,10 +1,10 @@
 package ss.week3.math;
 
-public class Product<T extends Function & Integrable> implements Function {
+public class Product implements Function {
 	
-	T g, h;
+	Function g, h;
 	
-	public Product(T g, T h) {
+	public Product(Function g, Function h) {
 		this.g = g;
 		this.h = h;
 	}

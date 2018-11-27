@@ -12,8 +12,13 @@ public class LinearProduct extends Product implements Integrable {
 	}
 	
 	@Override
-	public <T extends Function & Integrable> T integral() {
-		return new LinearProduct((Constant) g, h.integral());
+	public Integrable integral() {
+		Integrable result = null;
+		if (h instanceof Integrable) {
+			result = new LinearProduct((Constant) g, (Function) ((Integrable) h).integral());
+		}
+		
+		return result;
 	}
 	
 

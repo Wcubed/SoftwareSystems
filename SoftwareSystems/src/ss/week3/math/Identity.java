@@ -16,8 +16,8 @@ public class Identity implements Function, Integrable {
 	}
 	
 	@Override
-	public <T extends Function & Integrable> T integral() {
-		return new LinearProduct(Constant(0.5), new Exponent(2));
+	public Integrable integral() {
+		return new LinearProduct(new Constant(0.5), new Exponent(2));
 	}
 
 	@Override

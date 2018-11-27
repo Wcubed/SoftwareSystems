@@ -19,8 +19,8 @@ public class Exponent implements Function, Integrable {
 	}
 	
 	@Override
-	public <T extends Function & Integrable> T integral() {
-		return new LinearProduct(Constant(1 / (exp + 1)), new Exponent(exp + 1));
+	public Integrable integral() {
+		return new LinearProduct(new Constant(1.00 / (exp + 1)), new Exponent(exp + 1));
 	}
 	
 	@Override

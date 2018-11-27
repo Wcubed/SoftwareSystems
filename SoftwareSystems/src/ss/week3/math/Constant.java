@@ -19,8 +19,8 @@ public class Constant implements Function, Integrable {
 	}
 	
 	@Override
-	public <T extends Function & Integrable> T integral() {
-		return new LinearProduct(Constant(value), new Identity());
+	public Integrable integral() {
+		return new LinearProduct(new Constant(value), new Identity());
 	}
 
 
