@@ -4,8 +4,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ ConstantTest.class, ExponentTest.class, IdentityTest.class, LinearProductTest.class,
-		ProductTest.class, SumTest.class, TimedPasswordTest.class })
+@Suite.SuiteClasses({ ConstantTest.class, ExponentTest.class, IdentityTest.class,
+	    LinearProductTest.class, ProductTest.class, SumTest.class, TimedPasswordTest.class,
+	    BillTest.class })
 
 public class TestSuite {
 	// the class remains empty,
