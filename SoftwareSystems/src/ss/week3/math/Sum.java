@@ -1,10 +1,10 @@
 package ss.week3.math;
 
-public class Sum<T extends Function & Integrable> implements Function, Integrable {
+public class Sum implements Function, Integrable {
 	
-	T g, h;
+	Function g, h;
 	
-	public Sum(T g, T h) {
+	public Sum(Function g, Function h) {
 		this.g = g;
 		this.h = h;
 	}
@@ -20,8 +20,8 @@ public class Sum<T extends Function & Integrable> implements Function, Integrabl
 	}
 	
 	@Override
-	public T integral() {
-		return (T) new LinearProduct(new Constant(0.5), new Exponent(2));
+	public Integrable integral() {
+		return new LinearProduct(new Constant(0.5), new Exponent(2));
 	}
 
 	@Override
