@@ -13,14 +13,14 @@ public class PricedSafe extends Safe implements Bill.Item {
 		this.price = price;
 	}
 	
-	@Override
 	//@ pure
+	@Override
 	public double getAmount() {
 		return price;
 	}
 
-	@Override
 	//@ pure
+	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
 		return String.format("Safe: €%.2f", price);
