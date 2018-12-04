@@ -8,6 +8,8 @@ public class PricedRoom extends Room implements Bill.Item {
 	double rent;
 
 	//@ ensures getAmount() == rent;
+	//@ ensures getSafe() instanceof PricedSafe;
+	//@ ensures ((PricedSafe) getSafe()).getAmount() == safeRent;
 	public PricedRoom(int no, double rent, double safeRent) {
 		super(no, new PricedSafe(safeRent));
 		

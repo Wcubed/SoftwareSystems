@@ -109,8 +109,7 @@ public class Game {
 		int currentPlayer = 0;
 		while (!board.gameOver()) {
 			update();
-			board.setField(players[currentPlayer].determineMove(board),
-					       players[currentPlayer].getMark());
+			players[currentPlayer].makeMove(board);
 			currentPlayer++;
 			currentPlayer %= NUMBER_PLAYERS;
 		}

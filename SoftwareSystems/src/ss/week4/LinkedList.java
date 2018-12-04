@@ -37,9 +37,7 @@ public class LinkedList<E> {
 		} else {
 			// No node before the requested one, check if we are removing the head.
 			if (first.getElement().equals(element)) {
-				Node newFirst = first.next;
-				first.next = null;
-				first = newFirst;
+				first = first.next;
 				
 				size--;
 			}

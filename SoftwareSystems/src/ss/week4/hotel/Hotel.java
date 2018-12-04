@@ -101,8 +101,12 @@ public class Hotel {
 			for (int i = 0; i < nights; i++) {
 				bill.addItem(room1);
 			}
-			bill.addItem((PricedSafe) room1.getSafe());			
+			if (room1.getSafe() instanceof PricedSafe) {
+				bill.addItem((PricedSafe) room1.getSafe());	
+			}		
 		}
+		
+		bill.close();
 		
 		return bill;
 	}

@@ -12,13 +12,13 @@ public class Polynomial implements Function, Integrable {
 
 	public Polynomial(double[] arguments) {
 		components = new LinearProduct[arguments.length];
-		
+
 		for (int i = 0; i < arguments.length; i++) {
 			components[i] = new LinearProduct(new Constant(arguments[i]), new Exponent(i));
 		}
 	}
 
-	public Polynomial(LinearProduct[] components) {
+	private Polynomial(LinearProduct[] components) {
 		this.components = components;
 	}
 
@@ -33,14 +33,14 @@ public class Polynomial implements Function, Integrable {
 
 	@Override
 	public Function derivative() {
-		LinearProduct[] derComponents = new LinearProduct[components.length-1];
+		LinearProduct[] derComponents = new LinearProduct[components.length - 1];
 		// a0 falls away, so start at i = 1;
 		for (int i = 1; i < components.length; i++) {
 			derComponents[i - 1] = (LinearProduct) components[i].derivative();
 		}
 		return new Polynomial(derComponents);
 	}
-	
+
 	@Override
 	public Integrable integral() {
 		LinearProduct[] derComponents = new LinearProduct[components.length];
