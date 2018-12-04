@@ -1,6 +1,6 @@
 package ss.week4;
 
-public class DoublyLinkedList<Element> {
+public class DoublyLinkedList<E> {
 
     private /*@ spec_public @*/ int size;
     private Node head;
@@ -17,18 +17,37 @@ public class DoublyLinkedList<Element> {
     //@ requires 0 <= index && index <= this.size;
     //@ ensures this.size == \old(size) + 1;
     //@ ensures this.getNode(index).equals(element);
-    public void add(int index, Element element) {
-        // TODO: implement, see exercise P-4.9
+    public void add(int index, E element) {
+        Node newNode = new Node(element);
+        Node prevNode = getNode(index - 1);
+        Node nextNode = prevNode.next;
+        
+        prevNode.next = newNode;
+        newNode.previous = prevNode;
+        newNode.next = nextNode;
+        nextNode.previous = newNode;
+        
+        size++;
     }
 
-    //@ requires 0 <= index && index < this.size;
     //@ ensures this.size == \old(size) - 1;
     public void remove(int index) {
-        // TODO: implement, see exercise P-4.9
+    	Node oldNode = getNode(index);
+    	Node prevNode = oldNode.previous;
+    	Node nextNode = oldNode.next;
+    	
+    	if (prevNode != null) {
+    		prevNode.next = nextNode;
+    	}
+    	if (nextNode != null) {
+    		nextNode.previous = prevNode;
+    	}
+    	
+    	size--;
     }
 
     //@ requires 0 <= index && index < this.size;
-    /*@ pure */ public Element get(int index) {
+    /*@ pure */ public E get(int index) {
         Node p = getNode(index);
         return p.element;
     }
@@ -53,17 +72,17 @@ public class DoublyLinkedList<Element> {
         return this.size;
     }
     public class Node {
-        public Node(Element element) {
+        public Node(E element) {
             this.element = element;
             this.next = null;
             this.previous = null;
         }
 
-        private Element element;
+        private E element;
         public Node next;
         public Node previous;
 
-        public Element getElement() {
+        public E getElement() {
             return element;
         }
     }
