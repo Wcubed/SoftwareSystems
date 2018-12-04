@@ -28,7 +28,22 @@ public class LinkedList<E> {
 
 	// @ ensures this.size == \old(size) - 1;
 	public void remove(E element) {
-		// TODO: implement, see exercise P-4.18
+		Node nodeBefore = findBefore(element);
+		if (nodeBefore != null) {
+			Node nextNode = nodeBefore.next.next;
+			nodeBefore.next = nextNode;
+			
+			size--;
+		} else {
+			// No node before the requested one, check if we are removing the head.
+			if (first.getElement().equals(element)) {
+				Node newFirst = first.next;
+				first.next = null;
+				first = newFirst;
+				
+				size--;
+			}
+		}
 	}
 
 	public Node findBefore(E element) {
