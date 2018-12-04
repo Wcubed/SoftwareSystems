@@ -29,6 +29,7 @@ public class HumanPlayer extends Player {
     // -- Commands ---------------------------------------------------
 
     /*@
+       also
        requires board != null;
        ensures board.isField(\result) && board.isEmptyField(\result);
 

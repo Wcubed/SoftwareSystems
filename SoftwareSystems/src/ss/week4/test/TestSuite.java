@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ BoardTest.class, DoublyLinkedListTest.class, ExercisesTest.class, 
-	LinkedListTest.class, MergeSortTest.class, PricedRoomTest.class, PricedSafeTest.class,
+	LinkedListTest.class, PricedRoomTest.class, PricedSafeTest.class,
 	PolynomialTest.class })
 
 public class TestSuite {
