@@ -9,6 +9,14 @@ package ss.week4.tictactoe;
  */
 public class TicTacToe {
     public static void main(String[] args) {
-        // TODO: implement, see P-4.21
+    	String name1 = "Alice";
+    	String name2 = "Bob";
+    	if (args.length >= 2) {
+    		name1 = args[0];
+    		name2 = args[1];
+    	}
+        Game game = new Game(new HumanPlayer(name1, Mark.XX), new HumanPlayer(name2, Mark.OO));
+        
+        game.start();
     }
 }

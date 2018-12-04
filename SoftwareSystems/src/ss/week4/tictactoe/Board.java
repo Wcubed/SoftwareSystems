@@ -1,7 +1,5 @@
 package ss.week4.tictactoe;
 
-import org.junit.jupiter.params.shadow.com.univocity.parsers.fixed.FieldAlignment;
-
 /**
  * Board for the Tic Tac Toe game. Module 2 lab assignment.
  *
