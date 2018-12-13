@@ -1,5 +1,7 @@
 package ss.week4.tictactoe;
 
+import java.util.Vector;
+
 /**
  * Board for the Tic Tac Toe game. Module 2 lab assignment.
  *
@@ -345,5 +347,18 @@ public class Board {
 	// @ ensures this.getField(row,col) == m;
 	public void setField(int row, int col, Mark m) {
 		setField(index(row, col), m);
+	}
+	
+	
+	public Vector<Integer> getEmptyFields() {
+		Vector<Integer> result = new Vector<Integer>();
+		
+		for (int i = 0; i < DIM * DIM; i++) {
+			if (isEmptyField(i)) {
+				result.add(i);
+			}
+		}
+		
+		return result;
 	}
 }
