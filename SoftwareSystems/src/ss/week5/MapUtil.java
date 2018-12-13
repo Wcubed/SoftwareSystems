@@ -6,6 +6,11 @@ import java.util.Map;
 import java.util.Set;
 
 public class MapUtil {
+	
+	/*@ requires map != null;
+	  @
+	  @ pure
+	  @*/
 	public static <K, V> boolean isOneOnOne(Map<K, V> map) {
 		boolean result = true;
 		HashSet<V> values = new HashSet<V>();
@@ -24,6 +29,11 @@ public class MapUtil {
 		return result;
 	}
 
+	/*@ requires map != null;
+	  @ requires range != null;
+	  @
+	  @ pure
+	  @*/
 	public static <K, V> boolean isSurjectiveOnRange(Map<K, V> map, Set<V> range) {
 		return range.containsAll(map.values()) && map.values().containsAll(range);
 	}
@@ -46,6 +56,10 @@ public class MapUtil {
 		return result;
 	}
 
+	/*@ requires map != null;
+	  @
+	  @ pure
+	  @*/
 	public static <K, V> Map<V, K> inverseBijection(Map<K, V> map) {
 		Map<V, K> result = null;
 		
@@ -62,10 +76,20 @@ public class MapUtil {
 		return result;
 	}
 
+	/*@ requires f != null;
+	  @ requires g != null;
+	  @
+	  @ pure
+	  @*/
 	public static <K, V, W> boolean compatible(Map<K, V> f, Map<V, W> g) {
 		return g.keySet().containsAll(f.values());
 	}
 
+	/*@ requires f != null;
+	  @ requires g != null;
+	  @
+	  @ pure
+	  @*/
 	public static <K, V, W> Map<K, W> compose(Map<K, V> f, Map<V, W> g) {
 		Map<K, W> result = null;
 		
