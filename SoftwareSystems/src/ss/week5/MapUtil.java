@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.Vector;
 
 public class MapUtil {
 	public static <K, V> boolean isOneOnOne(Map<K, V> map) {
@@ -30,13 +29,37 @@ public class MapUtil {
 	}
 
 	public static <K, V> Map<V, Set<K>> inverse(Map<K, V> map) {
-		// TODO: implement, see exercise P-5.3
-		return null;
+		HashMap<V, Set<K>> result = new HashMap<V, Set<K>>();
+		
+		for (Map.Entry<K, V> entry : map.entrySet()) {
+			V value = entry.getValue();
+			
+			if (result.containsKey(value)) {
+				result.get(value).add(entry.getKey());
+			} else {
+				HashSet<K> set = new HashSet<K>();
+				set.add(entry.getKey());
+				result.put(value, set);
+			}
+			
+		}
+		return result;
 	}
 
 	public static <K, V> Map<V, K> inverseBijection(Map<K, V> map) {
-		// TODO: implement, see exercise P-5.3
-		return null;
+		Map<V, K> result = null;
+		
+		// We only need to check for whether the map is injective (one-on-one).
+		// As a java Map cannot have a value without key, and is therefore always surjective.
+		if (isOneOnOne(map)) {
+			result = new HashMap<V, K>();
+			
+			for (Map.Entry<K, V> entry : map.entrySet()) {
+				result.put(entry.getValue(), entry.getKey());
+			}
+		}
+		
+		return result;
 	}
 
 	public static <K, V, W> boolean compatible(Map<K, V> f, Map<V, W> g) {
