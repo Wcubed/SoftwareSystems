@@ -114,6 +114,7 @@ public class Game {
 			currentPlayer %= NUMBER_PLAYERS;
 		}
 		
+		update();
 		printResult();
 	}
 
