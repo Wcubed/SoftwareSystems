@@ -16,20 +16,24 @@ public class SmartStrategy implements Strategy {
 		
 		int bestMove = -1;
 		int bestScore = Integer.MIN_VALUE;
+		boolean randomFallback = true;
 		
 		for (int move : moves) {
 			Board copy = b.deepCopy();
-			b.setField(move, m);
+			copy.setField(move, m);
 			
 			int score = Integer.MIN_VALUE;
 			
 			if (copy.isWinner(m)) {
 				score = 100;
-			} else if (copy.isWinner(m.other())) {
+				randomFallback = false;
+			} else if (canOtherMarkWin(copy, m)) {
 				score = -100;
+				randomFallback = false;
 			} else if (move == 4) {
-				// Prefer the middle if there are no winning or losing moves.
+				// Prefer the middle if there are no better moves.
 				score = 10;
+				randomFallback = false;
 			} else {
 				score = 0;
 			}
@@ -39,13 +43,30 @@ public class SmartStrategy implements Strategy {
 				bestMove = move;
 			}
 		}
-
-		if (bestScore == 0) {
-			// It  doesn't matter which move we make, so do a random one.
+		
+		if (randomFallback) {
+			// It doesn't matter which move we do, so pick a random one.
 			bestMove = moves.get((int) Math.floor(Math.random() * moves.size()));
 		}
 		
 		return bestMove;
+	}
+	
+	private boolean canOtherMarkWin(Board b, Mark m) {
+		boolean result = false;
+		Vector<Integer> otherMoves = b.getEmptyFields();
+		
+		for (int otherMove : otherMoves) {
+			Board otherCopy = b.deepCopy();
+			otherCopy.setField(otherMove, m.other());
+			
+			if (otherCopy.isWinner(m.other())) {
+				result = true;
+				break;
+			}
+		}
+		
+		return result;
 	}
 
 }
