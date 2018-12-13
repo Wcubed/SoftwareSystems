@@ -1,7 +1,5 @@
 package ss.week5;
 
-import ss.week4.tictactoe.*;
-
 public interface Strategy {
 	public String getName();
 

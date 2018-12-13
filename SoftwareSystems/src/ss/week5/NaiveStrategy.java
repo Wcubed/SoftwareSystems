@@ -2,9 +2,6 @@ package ss.week5;
 
 import java.util.Vector;
 
-import ss.week4.tictactoe.Board;
-import ss.week4.tictactoe.Mark;
-
 public class NaiveStrategy implements Strategy {
 
 	@Override
