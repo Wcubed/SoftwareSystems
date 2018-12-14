@@ -7,16 +7,12 @@ import java.util.Set;
 
 public class MapUtil {
 
-	/*
-	 * @ requires map != null;
-	 * 
-	 * Am I allowed to do that way of ensuring a boolean result? Or should I have:
-	 * (condition ==> \result == true) and (!condition ==> \result == false)?
-	 * 
-	 * @ ensures \result = (\forall Object k, v, w; ; map.contains(k, v) &&
-	 * !k.equals(w) ==> !map.contains(w, v))
-	 * 
-	 * @ pure
+	/*@requires map != null;
+	  
+	  ensures \result == (\forall Object k, v, w; ; map.get(k).equals(v) &&
+	  !k.equals(w) ==> !map.get(w).equals(v));
+	  
+	  pure
 	 */
 	public static <K, V> boolean isOneOnOne(Map<K, V> map) {
 		boolean result = true;
@@ -36,27 +32,27 @@ public class MapUtil {
 		return result;
 	}
 
-	/*
-	 * @ requires map != null;
-	 * 
-	 * @ requires range != null;
-	 * 
-	 * @ ensures \result = range.containsAll(map.values()) &&
-	 * map.values().containsAll(range);
-	 * 
-	 * @ pure
+	/*@
+	  requires map != null;
+	  
+	  requires range != null;
+	  
+	  ensures \result == range.containsAll(map.values()) &&
+	  map.values().containsAll(range);
+	  
+	  pure
 	 */
 	public static <K, V> boolean isSurjectiveOnRange(Map<K, V> map, Set<V> range) {
 		return range.containsAll(map.values()) && map.values().containsAll(range);
 	}
 
-	/*
-	 * @ requires map != null;
-	 * 
-	 * @ ensures (\forall Object k, v; ; \result.hasKey(v) &&
-	 * \result.get(v).contains(k) <==> map.contains(k, v))
-	 * 
-	 * @ pure
+	/*@
+	  requires map != null;
+	  
+	  ensures (\forall Object k, v; ; \result.containsKey(v) &&
+	  \result.get(v).contains(k) <==> map.get(k).equals(v));
+	  
+	  pure
 	 */
 	public static <K, V> Map<V, Set<K>> inverse(Map<K, V> map) {
 		HashMap<V, Set<K>> result = new HashMap<V, Set<K>>();
@@ -76,15 +72,15 @@ public class MapUtil {
 		return result;
 	}
 
-	/*
-	 * @ requires map != null;
-	 * 
-	 * @ ensures !isOneOnOne(map) ==> \result = null;
-	 * 
-	 * @ ensures isOnOnOne(map) ==> (\forall Object k, v; ; \result.hasKey(v) &&
-	 * \result.get(v) == k <==> map.contains(k, v))
-	 * 
-	 * @ pure
+	/*@
+	  requires map != null;
+	  
+	  ensures !isOneOnOne(map) ==> \result == null;
+	  
+	  ensures isOneOnOne(map) ==> (\forall Object k, v; ; \result.containsKey(v) &&
+	    \result.get(v) == k <==> map.get(k).equals(v));
+	  
+	  pure
 	 */
 	public static <K, V> Map<V, K> inverseBijection(Map<K, V> map) {
 		Map<V, K> result = null;
@@ -103,30 +99,30 @@ public class MapUtil {
 		return result;
 	}
 
-	/*
-	 * @ requires f != null;
-	 * 
-	 * @ requires g != null;
-	 * 
-	 * @ ensures \result = g.keySet().containsAll(f.values());
-	 * 
-	 * @ pure
+	/*@
+	  requires f != null;
+	  
+	  requires g != null;
+	  
+	  ensures \result == g.keySet().containsAll(f.values());
+	  
+	  pure
 	 */
 	public static <K, V, W> boolean compatible(Map<K, V> f, Map<V, W> g) {
 		return g.keySet().containsAll(f.values());
 	}
 
-	/*
-	 * @ requires f != null;
-	 * 
-	 * @ requires g != null;
-	 * 
-	 * @ ensures !compatible(f, g) ==> result == null;
-	 * 
-	 * @ ensures compatible(f, g) ==> (\forall Object k, v, w; ; \result.contains(k,
-	 * w) <==> f.contains(k, v) && g.contains(v, w))
-	 * 
-	 * @ pure
+	/*@
+	  requires f != null;
+	  
+	  requires g != null;
+	  
+	  ensures !compatible(f, g) ==> \result == null;
+	  
+	  ensures compatible(f, g) ==> (\forall Object k, v, w; ; \result.get(k).equals(w)
+	  <==> f.get(k).equals(v) && g.get(k).equals(w));
+	  
+	  pure
 	 */
 	public static <K, V, W> Map<K, W> compose(Map<K, V> f, Map<V, W> g) {
 		Map<K, W> result = null;

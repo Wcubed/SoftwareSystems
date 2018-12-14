@@ -1,8 +1,11 @@
 package ss.week6.cards;
 
+import java.io.BufferedReader;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.Scanner;
 
 public class Card {
 
@@ -249,6 +252,28 @@ public class Card {
 		writer.append(toString());
 		writer.append("\n");
 		writer.flush();
+	}
+	
+	public static Card read(BufferedReader reader) throws EOFException {
+		Card card = null;
+		
+		Scanner scanner = new Scanner(reader);
+		
+		if (scanner.hasNext()) {
+			char suit = Card.suitString2Char(scanner.next());
+			
+			if (scanner.hasNext()) {
+				char rank = Card.rankString2Char(scanner.next());
+				
+				if (isValidSuit(suit) && isValidRank(rank)) {
+					
+				}
+			}
+		}
+		
+		scanner.close();
+		
+		return card;
 	}
 
 	/**
