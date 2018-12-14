@@ -87,7 +87,8 @@ public class MapUtil {
 
 		// We only need to check for whether the map is injective (one-on-one).
 		// As a java Map cannot have a value without key, and is therefore always
-		// surjective.
+		// surjective. Except when the map has a key pointing 
+		// to a null value, which is a weird case.
 		if (isOneOnOne(map)) {
 			result = new HashMap<V, K>();
 

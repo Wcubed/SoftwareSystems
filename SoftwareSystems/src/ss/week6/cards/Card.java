@@ -1,10 +1,16 @@
 package ss.week6.cards;
 
 import java.io.BufferedReader;
+import java.io.DataInput;
+import java.io.DataOutput;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.util.Scanner;
 
 public class Card {
@@ -26,9 +32,9 @@ public class Card {
 
 	// some convenient arrays
 	private static final char[] RANK_CHARACTERS = "23456789TJQKA".toCharArray();
-	private static final char[] SUIT_CHARACTERS = {'C', 'D', 'H', 'S'};
-	private static final String[] RANK_STRINGS = {"2", "3", "4", "5", 
-		"6", "7", "8", "9", "10", "jack", "queen",
+	private static final char[] SUIT_CHARACTERS = {'C', 'D', 'H', 'S' };
+	private static final String[] RANK_STRINGS = {"2", "3", "4", "5", "6",
+		"7", "8", "9", "10", "jack", "queen",
 		"king", "ace" };
 	private static final String[] SUIT_STRINGS = {"Clubs", "Diamonds", "Hearts", "Spades" };
 
@@ -83,8 +89,8 @@ public class Card {
 	 */
 	/* @pure */
 	public static boolean isValidRank(char r) {
-		return ('2' <= r && r <= '9') || r == TEN || r == JACK || 
-				r == QUEEN || r == KING || r == ACE;
+		return ('2' <= r && r <= '9') || r == TEN ||
+				r == JACK || r == QUEEN || r == KING || r == ACE;
 	}
 
 	/*
@@ -125,7 +131,8 @@ public class Card {
 	 * @ requires isValidRank(r1) && isValidRank(r2);
 	 */
 	/**
-	 * Tests if one rank directly follows the other accroding to '2' < '3' < ... <
+	 * Tests if one rank directly follows the other accroding to 
+	 * '2' < '3' < ... <
 	 * TEN < JACK < QUEEN < KING < ACE.
 	 */
 	public static boolean isRankFollowing(char r1, char r2) {
@@ -253,26 +260,74 @@ public class Card {
 		writer.append("\n");
 		writer.flush();
 	}
-	
+
+	public void write(DataOutput out) throws IOException {
+		out.writeChar(getSuit());
+		out.writeChar(getRank());
+		// There is no `.flush()` on DataOutput?
+	}
+
+	public void write(ObjectOutput out) throws IOException {
+		out.writeChar(getSuit());
+		out.writeChar(getRank());
+		out.flush();
+	}
+
 	public static Card read(BufferedReader reader) throws EOFException {
 		Card card = null;
-		
+
 		Scanner scanner = new Scanner(reader);
-		
+
 		if (scanner.hasNext()) {
 			char suit = Card.suitString2Char(scanner.next());
-			
+
 			if (scanner.hasNext()) {
 				char rank = Card.rankString2Char(scanner.next());
-				
+
 				if (isValidSuit(suit) && isValidRank(rank)) {
-					
+					card = new Card(suit, rank);
 				}
 			}
 		}
-		
+
 		scanner.close();
-		
+
+		return card;
+	}
+
+	public static Card read(DataInput in) throws EOFException {
+		Card card = null;
+
+		try {
+			char suit = in.readChar();
+			char rank = in.readChar();
+
+			if (isValidSuit(suit) && isValidRank(rank)) {
+				card = new Card(suit, rank);
+			}
+		} catch (IOException e) {
+			// Uh oh, we can't make a card out of this.
+			// Return a `null` card.
+		}
+
+		return card;
+	}
+
+	public static Card read(ObjectInput in) throws EOFException {
+		Card card = null;
+
+		try {
+			char suit = in.readChar();
+			char rank = in.readChar();
+
+			if (isValidSuit(suit) && isValidRank(rank)) {
+				card = new Card(suit, rank);
+			}
+		} catch (IOException e) {
+			// Uh oh, we can't make a card out of this.
+			// Return a `null` card.
+		}
+
 		return card;
 	}
 
@@ -344,10 +399,10 @@ public class Card {
 	public boolean isInRankBefore(Card card) {
 		return isRankFollowing(this.getRank(), card.getRank());
 	}
-	
+
 	public static void main(String[] args) {
 		PrintWriter writer;
-		
+
 		if (args.length >= 1) {
 			String fileName = args[0];
 			File out = new File(fileName);
@@ -361,13 +416,13 @@ public class Card {
 			// No file specified. Use the standard out.
 			writer = new PrintWriter(System.out);
 		}
-		
+
 		Card c1 = new Card(Card.DIAMONDS, Card.ACE);
 		Card c2 = new Card(Card.CLUBS, '2');
 		Card c3 = new Card(Card.HEARTS, '5');
 		Card c4 = new Card(Card.SPADES, Card.QUEEN);
 		Card c5 = new Card(Card.SPADES, Card.KING);
-		
+
 		c1.write(writer);
 		c2.write(writer);
 		c3.write(writer);
