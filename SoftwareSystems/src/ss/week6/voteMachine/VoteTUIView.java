@@ -6,9 +6,9 @@ import java.util.Observable;
 import java.util.Scanner;
 
 public class VoteTUIView implements VoteView {
-	
+
 	VoteMachine voteMachine;
-	
+
 	public VoteTUIView(VoteMachine machine) {
 		voteMachine = machine;
 	}
@@ -21,25 +21,84 @@ public class VoteTUIView implements VoteView {
 
 	@Override
 	public void start() {
-		System.out.println("This is a voting machine.");
-		
+		System.out.println("Hello human, I am a voting machine.");
+
 		showHelpMessage();
-		
+
 		Scanner scan = new Scanner(System.in);
-		
+
 		boolean running = true;
-		
+
 		while (running) {
+			System.out.print(">> ");
+			
 			scan.hasNextLine();
-			
+
 			String input = scan.nextLine();
-			
+
 			Scanner words = new Scanner(input);
-			
-			
+
+			try {
+				
+				switch (words.next()) {
+					case "VOTES":
+						showVotes(voteMachine.getVotes());
+						break;
+						
+					case "PARTIES":
+						showParties(voteMachine.getParties());
+						break;
+						
+					case "EXIT":
+						System.out.println("Goodbye!");
+						running = false;
+						break;
+						
+					case "HELP":
+						showHelpMessage();
+						break;
+						
+					case "ADD":
+						if (words.next().equals("PARTY")) {
+							if (words.hasNext()) {
+								String party = words.next();
+								if (voteMachine.addParty(party)) {
+									System.out.println("Added \""
+											+ party + "\" to the election.");
+								} else {
+									System.out.println("Sorry, \""
+											+ party + "\" is already participating.");
+								}
+							} else {
+								System.out.println("Please specify a name for the party.");
+							}
+						}
+						break;
+						
+					case "VOTE":
+						String party = words.next();
+						if (!party.equals("")) {
+							if (voteMachine.vote(party)) {
+								System.out.println("Voted for \"" 
+										+ party + "\".");
+							} else {
+								System.out.println("Sorry, the party \"" 
+										+ party + "\" does not exist.");
+								showParties(voteMachine.getParties());
+							}
+						}
+						break;
+						
+				}
+				
+			} catch (java.util.NoSuchElementException e) {
+		    	// No input, don't do anything.
+				// Just loop around and show the prompt again.
+		    }
+
 			words.close();
 		}
-		
+
 		scan.close();
 	}
 
@@ -47,7 +106,7 @@ public class VoteTUIView implements VoteView {
 	public void showVotes(Map<String, Integer> votes) {
 		System.out.println("The current vote tally:");
 		for (Map.Entry<String, Integer> vote : votes.entrySet()) {
-			System.out.println(String.format("%s: %15d", vote.getKey(), vote.getValue()));
+			System.out.println(String.format("%-15s %10d", vote.getKey(), vote.getValue()));
 		}
 
 	}
@@ -65,15 +124,20 @@ public class VoteTUIView implements VoteView {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	private void showHelpMessage() {
-		System.out.println("Use one of the following commands:");
-		System.out.println("VOTE [party]");
-		System.out.println("ADD PARTY [party]");
-		System.out.println("VOTES");
-		System.out.println("PARTIES");
-		System.out.println("EXIT");
-		System.out.println("HELP");
+		System.out.println("This is a voting machine that can be used to "
+				+ "vote on parties in the current election.");
+		System.out.println("It supports the following commands:");
+		System.out.println("");
+		System.out.println("VOTE [party]       - Vote for the given party.");
+		System.out.println("ADD PARTY [party]  - Add a party to the election.");
+		System.out.println("VOTES              - Show all the tallied votes.");
+		System.out.println("PARTIES            - Show all the parties "
+				+ "participating in this election.");
+		System.out.println("EXIT               - Exit the program.");
+		System.out.println("HELP               - Show this help message.");
+		System.out.println("");
 	}
 
 }

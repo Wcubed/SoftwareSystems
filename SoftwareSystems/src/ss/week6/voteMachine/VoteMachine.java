@@ -21,8 +21,8 @@ public class VoteMachine {
 		view.start();
 	}
 	
-	public void addParty(String party) {
-		parties.addParty(party);
+	public boolean addParty(String party) {
+		return parties.addParty(party);
 	}
 	
 	/*

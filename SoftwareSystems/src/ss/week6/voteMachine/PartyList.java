@@ -11,8 +11,14 @@ public class PartyList {
 		parties = new ArrayList<String>();
 	}
 	
-	public void addParty(String party) {
-		parties.add(party);
+	public boolean addParty(String party) {
+		boolean result = false;
+		if (!hasParty(party)) {
+			parties.add(party);
+			result = true;
+		}
+		
+		return result;
 	}
 	
 	public boolean hasParty(String party) {
