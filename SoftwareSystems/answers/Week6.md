@@ -15,3 +15,7 @@ Users with password `password`:
 - diane
 - fred
 - raj
+
+## 6.23
+There are 26^4 = 456976 possible 4 letter words.
+On average, it would take half of that, so 228488 attempts.
