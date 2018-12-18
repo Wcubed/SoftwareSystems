@@ -7,6 +7,10 @@ public class ArgumentLengthsDifferException extends WrongArgumentException {
 	 */
 	private static final long serialVersionUID = 456L;
 	int l1, l2;
+	
+	public ArgumentLengthsDifferException() {
+		this(-1, -1);
+	}
 
 	public ArgumentLengthsDifferException(int l1, int l2) {
 		super();
