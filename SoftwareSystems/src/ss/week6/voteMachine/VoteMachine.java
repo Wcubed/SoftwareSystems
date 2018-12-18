@@ -3,12 +3,14 @@ package ss.week6.voteMachine;
 import java.util.List;
 import java.util.Map;
 
+import ss.week6.voteMachine.gui.VoteGUIView;
+
 public class VoteMachine {
 	
 	PartyList parties;
 	VoteList votes;
 	
-	VoteTUIView view;
+	VoteView view;
 	
 	public VoteMachine() {
 		parties = new PartyList();
