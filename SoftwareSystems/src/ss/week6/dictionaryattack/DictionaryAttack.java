@@ -1,6 +1,10 @@
 package ss.week6.dictionaryattack;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Map;
+import java.util.Scanner;
 
 
 public class DictionaryAttack {
@@ -17,7 +21,20 @@ public class DictionaryAttack {
 	 * @param filename
 	 */
 	public void readPasswords(String filename) {
-		// To implement        
+		try {
+			FileReader file = new FileReader(filename);
+			Scanner scan = new Scanner(file);
+			
+			while (scan.hasNextLine()) {
+				String[] parts = scan.nextLine().split(": ");
+				passwordMap.put(parts[0], parts[1]);
+			}
+			
+			scan.close();
+			file.close();
+		} catch (IOException e) {
+			return;
+		}
 	}
 
 	/**
