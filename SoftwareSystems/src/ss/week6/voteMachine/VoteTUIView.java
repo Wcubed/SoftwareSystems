@@ -15,8 +15,11 @@ public class VoteTUIView implements VoteView {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
-
+		if ("vote".equals(arg1)) {
+			System.out.println("The vote tally changed.");
+		} else if ("party".equals(arg1)) {
+			System.out.println("The party list changed.");
+		}
 	}
 
 	@Override
@@ -63,11 +66,10 @@ public class VoteTUIView implements VoteView {
 							if (words.hasNext()) {
 								String party = words.next();
 								if (voteMachine.addParty(party)) {
-									System.out.println("Added \""
-											+ party + "\" to the election.");
+									System.out.printf("Added \"%s\" to the election.\n", party);
 								} else {
-									System.out.println("Sorry, \""
-											+ party + "\" is already participating.");
+									System.out.printf("Sorry, \"%s\" is already participating.\n", 
+											party);
 								}
 							} else {
 								System.out.println("Please specify a name for the party.");
@@ -79,11 +81,10 @@ public class VoteTUIView implements VoteView {
 						String party = words.next();
 						if (!party.equals("")) {
 							if (voteMachine.vote(party)) {
-								System.out.println("Voted for \"" 
-										+ party + "\".");
+								System.out.printf("Voted for \"%s\".\n", party);
 							} else {
-								System.out.println("Sorry, the party \"" 
-										+ party + "\" does not exist.");
+								System.out.printf("Sorry, the party \"%s\" does not exist.\n",
+										party);
 								showParties(voteMachine.getParties());
 							}
 						}
