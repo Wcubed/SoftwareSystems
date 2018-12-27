@@ -1,7 +1,7 @@
 package ss.week7.mandel;
 
 /**
- * Class for drawing the Mandel in parallel
+ * Class for drawing the Mandel in parallel.
  */
 class MandelThread extends Thread {
 	MandelThread(MandelPanel mpArg) {
