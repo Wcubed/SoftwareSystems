@@ -13,9 +13,6 @@ import javax.swing.JPanel;
 public class Ball {
 	public JPanel panel;
 
-	/*@
-	   requires panel != null;
-	 */
 	public Ball(JPanel panelArg) {
 		this.panel = panelArg;
 	}
