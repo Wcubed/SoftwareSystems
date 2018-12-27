@@ -10,3 +10,42 @@ The `start` button only adds a ball to the panel. But does not call the `animate
 
 ## 7.6
 Can't remove the call to `animate()` from `Bounce`. That function is not called there.
+
+## 7.9
+The threads are talking through each other. Example output:
+
+```
+Thread B: Enter number 1: Thread A: Enter number 1: 3
+Thread B: Enter number 2: 4
+Thread A: Enter number 2: 5
+Thread B: 3 + 5 = 8
+6
+Thread A: 4 + 6 = 10
+```
+
+First, both A and B ask for number 1, with A being the last one, but the `3` ends up with thread B. Then it looks like thread B asks for number 2, but the entered `4` get's passed to thread A as number 1.
+This is because both threads are waiting for input with `readLine()`. The first to call `readLine()` is the one to receive the input. Even if the other thread sent an output prompt in between.
+
+## 7.11
+Only one thread at a time may now execute a `SyncConsole` function. But this does not say anything about the order in which numbers get asked:
+
+```
+Thread B: Enter number 1: 1
+Thread A: Enter number 1: 2
+Thread A: Enter number 2: 3
+Thread B: Enter number 2: 4
+Thread A: 2 + 3 = 5
+Thread B: 1 + 4 = 5
+```
+
+Thread A can still interleave with thread B.
+
+## 7.12
+There is no difference. This because `synchronize` only works on a single instance of an object, and not between instances.
+
+## 7.14
+1. It means that you can acquire the lock, even if you already have it yourself.
+   Two subsequent calls to `lock()` on the same lock, won't give any issue.
+2. Yes.
+3. You can lock over multiple functions at once. The lock can be given out in a fairer way. It offers a way to try to acquire the lock, and do something else if it is occupied.
+4. A disadvantage is that one needs to make sure to call `unlock()`. Otherwise a thread might hog the lock indefinitely.
