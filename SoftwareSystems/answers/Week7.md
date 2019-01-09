@@ -62,3 +62,8 @@ Here we need to use `notifyAll()`, because both the producers and consumers are 
 - Thread1 could read the balance, then thread2 could modify the balance, and then thread1 would override thread2's modification, resulting in a wrong end result.
 
 - It would then use `new Thread(runnable);` I don't think the body of `MyThread` needs to be changed.
+
+## 7.20
+1. Results can be: 1, 2, 3. Same reason as 7.19, one thread can read the value and then another can change it, before the first thread saves it again.
+2. Just `3`. Calling `run()` won't start a new thread, it will simply execute the `run()` function in the current thread.
+3. 0, 1, 2 and 3. Depending on which thread is faster.
