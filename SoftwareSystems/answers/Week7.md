@@ -48,4 +48,12 @@ There is no difference. This because `synchronize` only works on a single instan
    Two subsequent calls to `lock()` on the same lock, won't give any issue.
 2. Yes.
 3. You can lock over multiple functions at once. The lock can be given out in a fairer way. It offers a way to try to acquire the lock, and do something else if it is occupied.
-4. A disadvantage is that one needs to make sure to call `unlock()`. Otherwise a thread might hog the lock indefinitely.
+4. A disadvantage is that one needs to make sure to call
+
+
+## 7.16
+The two producers are overwriting each other. Even if the number the first producer put in has not been read, the second producer can put in a number as well.
+A number can be read multiple times, in the end the consumers keep reading the last number endlessly.
+
+## 7.17
+Here we need to use `notifyAll()`, because both the producers and consumers are listening at the same time. So calling `notify()` might wake up a consumer when we want a producer and vice-versa.
