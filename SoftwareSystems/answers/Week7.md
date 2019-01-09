@@ -57,3 +57,8 @@ A number can be read multiple times, in the end the consumers keep reading the l
 
 ## 7.17
 Here we need to use `notifyAll()`, because both the producers and consumers are listening at the same time. So calling `notify()` might wake up a consumer when we want a producer and vice-versa.
+
+## 7.19
+- Thread1 could read the balance, then thread2 could modify the balance, and then thread1 would override thread2's modification, resulting in a wrong end result.
+
+- It would then use `new Thread(runnable);` I don't think the body of `MyThread` needs to be changed.
