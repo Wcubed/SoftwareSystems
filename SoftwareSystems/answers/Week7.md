@@ -67,3 +67,6 @@ Here we need to use `notifyAll()`, because both the producers and consumers are 
 1. Results can be: 1, 2, 3. Same reason as 7.19, one thread can read the value and then another can change it, before the first thread saves it again.
 2. Just `3`. Calling `run()` won't start a new thread, it will simply execute the `run()` function in the current thread.
 3. 0, 1, 2 and 3. Depending on which thread is faster.
+
+## 7.24
+The other end will receive 'null' when trying to read on the socket. This can be easily detected and acted upon.
